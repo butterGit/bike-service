@@ -1,1 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+body {
+  background: #121212;
+  color: #fff;
+}
+
+
+
+.data-header {
+  font-size: 22px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 15px;
+}
+
+.data-container {
+  padding: 15px;
+  background: #1D1D1D;
+  margin: 15px;
+}
+
+.alert {
+  padding: .50rem 1.25rem;
+  font-size: 0.9rem;
+}
+

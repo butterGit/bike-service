@@ -1,0 +1,6 @@
+<td csImportant [ngClass]="{'row-error': bike.isFullyDamaged }"> {{ bike?.model | uppercase }}</td>
+<td class = "row-bike"> {{ bike?.deliveryDate | date:'shortDate'}}</td>
+<td class = "row-bike"> {{ bike?.deadline | date:'shortDate'}}</td>
+<td class = "row-bike"> {{ bike.clientFirstName | surnameShortcut}} {{ bike.clientSurname }}</td>
+<td class = "row-bike" csImportant> {{ bike?.cost | currency: 'PLN' }}</td>
+<td class = "row-bike" (click)="removeBike(bike, $event)" class = 'remove-btn'> (X)</td>

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "bike-service-daf70": {
+      "hosting": {
+        "bike-service": [
+          "bike-service-daf70"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "bike-service-daf70"
+  }
+}

@@ -1,0 +1,32 @@
+.total-cost, .no-bikes-info {
+    text-align: center;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 20px;
+    background-color: #1D1D1D;
+}
+
+.after-deadline {
+  background-color: #ffdddd !important;
+}
+
+.sidebar {
+  background: #1D1D1D;
+}
+
+.checkbox{
+    margin-left: 15px;
+}
+
+th {
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.app-table{
+  background: #1D1D1D;
+  overflow-x: auto;
+}
+

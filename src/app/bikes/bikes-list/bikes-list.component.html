@@ -1,0 +1,170 @@
+<div class="row vh-100 overflow-auto">
+  <div class="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 d-flex sticky-top">
+    <app-sidebar class="sidebar w-100"></app-sidebar>
+  </div>
+
+  <div class="col-12 col-sm-9 col-xl-10 d-flex flex-column h-100">
+
+    <p levels>Bikes</p>
+
+    <div content>
+      <h5>Bikes List</h5>
+    </div>
+
+    <div class="col-sm-12">
+      <table class="app-table table rounded d-inline-block d-md-table">
+        <caption>Table describing bike list</caption>
+        <thead>
+          <tr>
+            <th id="Model">Bike </th>
+            <th id="Delivery date"> Delivery Date </th>
+            <th id="Repair deadline"> Deadline </th>
+            <th id="Client name"> Client </th>
+            <th id="Cost"> Cost </th>
+            <th id="Action placeholder">ACTION PLACEHOLDER</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let bike of bikes | async; let i = index" class="row-bike" [routerLink]="[bike.id]"
+           [bike] = "bike" app-bike-table-row (removedBike)="onRemovedBike(bike)">
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #noBikesInfo>
+        <div class="no-bikes-info">
+          <p>Currently no bikes in service</p>
+        </div>
+      </ng-template>
+    </div>
+
+    <div>
+    </div>
+
+    <app-total-cost #totalCostRef [cost]="cost"></app-total-cost>
+
+
+    <p class="data-header" #addBikeTitle>Add a new bike</p>
+
+    <div class="data-container rounded">
+
+      <form [formGroup]="bikeForm" action="">
+        <div class="row form-group">
+          <div class="col-sm-4">
+            <label for="model">Model</label>
+            <input formControlName="model" type="text" name="model" id="model" class="form-control" placeholder="model">
+            <p *ngIf="!bikeForm.get('model')!.valid && bikeForm.get('model')!.dirty" class="alert alert-danger">
+              This
+              field is required</p>
+          </div>
+          <div class="col-sm-4">
+            <label for="type">Type</label>
+            <input formControlName="type" type="text" name="type" id="type" class="form-control" placeholder="type">
+          </div>
+
+
+        </div>
+
+        <div class="row form-group">
+
+          <div class="col-sm-6">
+            <label for="color">Color</label>
+            <input formControlName="color" type="text" name="color" id="color" class="form-control" placeholder="cost">
+          </div>
+          <div class="col-sm-6">
+            <label for="year">Year</label>
+            <input formControlName="year" type="text" name="year" id="year" class="form-control" placeholder="year">
+          </div>
+        </div>
+        <div class="row form-group">
+          <div class="col-sm-6">
+            <label for="clientFirstName">Client First Name</label>
+            <input formControlName="clientFirstName" type="text" name="clientFirstName" id="clientFirstName"
+              class="form-control" placeholder="Client First Name">
+          </div>
+          <div class="col-sm-6">
+            <label for="clientSurname">Client Surname</label>
+            <input formControlName="clientSurname" type="text" name="clientSurname" id="clientSurname"
+              class="form-control" placeholder="surname">
+          </div>
+
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-4">
+            <label for="deliveryDate">Delivery Date</label>
+            <input formControlName="deliveryDate" type="date" name="deliveryDate" id="deliveryDate" class="form-control"
+              placeholder="date">
+          </div>
+          <div class="col-sm-4">
+            <label for="deadline">Deadline</label>
+            <input formControlName="deadline" type="date" name="deadline" id="deadline" class="form-control"
+              placeholder="Deadline">
+          </div>
+          <div class="col-sm-4 d-flex align-items-center justify-content-end">
+            <label for="isFullyDamaged">Is bike fully damaged?</label>
+            <input class="checkbox" formControlName="isFullyDamaged" type="checkbox" name="isFullyDamaged"
+              id="isFullyDamaged">
+          </div>
+
+        </div>
+
+
+        <div class="my-5 row">
+          <h5>Add One Photo</h5>
+          <input formControlName="imageUrl" #files type="file" accept="image/*" name="file" class="col">
+          <div #gallery id="gallery"></div>
+        </div>
+
+
+        <div class="mb-5">
+          <h4>Parts</h4>
+          <div formArrayName="parts" *ngFor="let part of parts.controls; let i = index">
+            <div [formGroupName]="i">
+              <div class="row border-top mt-3">
+                <div class="col-12">
+                  <h5>
+                    {{i + 1 }}){{part.value.name}} {{part.value.price | currency: 'PLN'}}
+
+                  </h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="row form-group">
+                  <div class="col-sm-4">
+                    <label for="name">Part Name</label>
+                    <input formControlName="name" type="text" name="name" id="name" class="form-control"
+                      placeholder="name">
+                  </div>
+                  <div class="col-sm-4">
+                    <label for="price">Price of this bike part</label>
+                    <input formControlName="price" type="text" name="price" id="price" class="form-control"
+                      placeholder="price">
+                  </div>
+                  <div class="col-sm d-flex align-items-center justify-content-end">
+                    <label for="inStock" class="m-15">Is this part in stock?</label>
+                    <input class="checkbox" formControlName="inStock" type="checkbox" name="inStock" id="inStock">
+                  </div>
+                  <div class="col">
+                    <button type="button" class="btn-close float-end" aria-label="Close"
+                      (click)="removePart(i)"></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" (click)=addPart()>Add Parts</button>
+        </div>
+
+
+        <div class="col d-flex align-items-end justify-content-end">
+          <button (click)="addBike()" [disabled]="bikeForm.invalid" type="submit"
+            class="btn btn-primary btn-lg">Submit</button>
+          <button (click)="bikeForm.reset()" class="btn btn-secondary float-end btn-lg ms-1">Reset</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
