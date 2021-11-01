@@ -23,13 +23,11 @@
   padding: 0;
 }
 
-
  @media (min-width: 1080px) {
   .card1, .card2{
     margin-top: auto;
   }
  }
-
 
 .card2:hover, .card1:hover {
   transform: scale(1.1)

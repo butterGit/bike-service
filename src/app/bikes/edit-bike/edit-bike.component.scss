@@ -1,0 +1,11 @@
+.editForm{
+  background-color: #1D1D1D;
+  width: 100%;
+  margin: auto;
+  margin-top: 1rem;
+  padding: 0;
+  @media (min-width: 576px) {
+    width: 80%;
+    padding: 2rem;
+  }
+}

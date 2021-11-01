@@ -3,4 +3,4 @@
 <td class = "row-bike"> {{ bike?.deadline | date:'shortDate'}}</td>
 <td class = "row-bike"> {{ bike.clientFirstName | surnameShortcut}} {{ bike.clientSurname }}</td>
 <td class = "row-bike" csImportant> {{ bike?.cost | currency: 'PLN' }}</td>
-<td class = "row-bike" (click)="removeBike(bike, $event)" class = 'remove-btn'> (X)</td>
+<td class = "row-bike"  class = 'remove-btn' (click)="removeBike(bike, $event)"> (X)</td>
