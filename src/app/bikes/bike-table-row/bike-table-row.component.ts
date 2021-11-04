@@ -1,6 +1,7 @@
-import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnInit, Output, Renderer2 } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output, Renderer2 } from '@angular/core';
 import { Bike } from 'src/app/models/bike';
 import { BikesService } from 'src/app/services/bikes.service';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -13,6 +14,7 @@ export class BikeTableRowComponent{
   @Input() bike!: Bike;
   @Output() removedBike = new EventEmitter();
   @HostBinding('class.after-deadline') deadline : boolean = false;
+
 
   @HostListener('mouseenter') onmouseenter() {
     this.setRemoveBtnStyle('red');
@@ -36,6 +38,7 @@ export class BikeTableRowComponent{
 
   removeBike(bike : Bike, event : Event) {
     event.stopPropagation();
+
     this.bikeService.removeBike(bike.id);
   }
 }

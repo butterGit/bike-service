@@ -9,5 +9,9 @@ export const environment = {
     authDomain: 'bike-service-daf70.firebaseapp.com',
     messagingSenderId: '664568165432',
     measurementId: 'G-M36THL8TQM',
+  },
+  cloudinary: {
+    upload_preset : 'dzttlvyc',
+    url: "https://api.cloudinary.com/v1_1/doavnyryj/upload",
   }
 };

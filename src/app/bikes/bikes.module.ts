@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BikesComponent } from './bikes/bikes.component';
 import { RouterModule } from '@angular/router';
 import { BikesListComponent } from './bikes-list/bikes-list.component';
-import { TotalCostComponent } from './total-cost/total-cost.component';
+import { TaxComponent } from './tax/tax.component';
 import { BikeTableRowComponent } from './bike-table-row/bike-table-row.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BikesRoutingModule } from './bikes-routing.module';
@@ -17,7 +17,7 @@ import { EditBikeComponent } from './edit-bike/edit-bike.component';
   declarations: [
     BikesComponent,
     BikesListComponent,
-    TotalCostComponent,
+    TaxComponent,
     BikeTableRowComponent,
     SurnameShortcutPipe,
     BikeFormComponent,

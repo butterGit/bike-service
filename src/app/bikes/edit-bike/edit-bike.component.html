@@ -1,34 +1,38 @@
 
 <div class="editForm">
-  <h1>Edit your bike!</h1>
-  <div class="image">
-    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+  <h1 class = "mb-3">Edit bike</h1>
+  <div *ngIf="showCarousel" class="carousel-container mb-5">
+    <div id="carouselExampleIndicators" class="carousel carousel-dark slide" data-bs-ride="carousel">
       <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
       </div>
       <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src={{imageUrl}} class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-          <img src={{imageUrl}} class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-          <img src={{imageUrl}} class="d-block w-100" alt="...">
+        <div *ngFor="let image of imageUrl; let i = index" class = 'carousel-item' [ngClass]="{'active': stateFlags[i] == true}" >
+          <img src={{image}} class="d-block w-100" alt="...">
         </div>
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <button (click) = "toggleStateLeft()" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
       </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <button (click) = "toggleStateRight()" class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </button>
     </div>
   </div>
+
   <app-bike-form #bikeForm ></app-bike-form>
+
+  <div class="col d-flex align-items-end justify-content-end">
+    <button (click) = "editBike()" type="submit" class="btn btn-primary btn-lg">
+      Edit
+    </button>
+    <button (click)="resetForm()" class="btn btn-secondary float-end btn-lg ms-1">
+      Reset
+    </button>
+  </div>
 </div>
 

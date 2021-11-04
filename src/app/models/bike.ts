@@ -11,5 +11,5 @@ export interface Bike {
   isFullyDamaged: boolean;
   year: number;
   parts: Object[];
-  imageUrl: string;
+  imageUrl: string[];
 }

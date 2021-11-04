@@ -1,20 +1,21 @@
 import {Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-total-cost',
-  templateUrl: './total-cost.component.html',
-  styleUrls: ['./total-cost.component.scss'],
+  templateUrl: './tax.component.html',
+  styleUrls: ['./tax.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TotalCostComponent {
+export class TaxComponent {
 
   @Input() cost!: number;
+  showTaxes: boolean = false;
   tax: number = 0;
 
-  countTax()
+  countTaxes()
   {
-    this.tax = this.cost * 0.18;
+    this.showTaxes = true;
+    this.tax = this.cost * 0.15;
   }
 
 }

@@ -22,7 +22,6 @@ const BIKE_ROUTES: Route[] = [
       {
         path: ':id',
         component: EditBikeComponent,
-        resolve: { bike : BikeResolver }
       }
     ]
   }

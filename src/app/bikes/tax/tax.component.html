@@ -1,0 +1,10 @@
+<button class="btn btn-sm btn-primary float-start" (click)="countTaxes()">Count Tax</button>
+<div *ngIf="showTaxes" class="row d-block pt-5">
+  <div class="col-sm-12">
+    <div class="total-cost text-end">
+      <p class="text-right">
+        Total cost is {{cost}}PLN
+        <span class="d-block">Tax: {{tax}}PLN</span>
+    </div>
+  </div>
+</div>
