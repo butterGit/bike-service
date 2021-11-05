@@ -50,12 +50,11 @@
     </div>
 
     <div class="my-5 row">
-      <h5>Add Photos</h5>
+      <h5>Add<span *ngIf="editForm"> More</span> Photos</h5>
       <input multiple formControlName="imageUrl" #files type="file" accept="image/*" name="file" class="col" />
-      <div #gallery id="gallery"></div>
     </div>
 
-    <div class="mb-5">
+    <div *ngIf="!editForm else partsEditForm" class="mb-5">
       <h4>Parts</h4>
       <div formArrayName="parts" *ngFor="let part of parts.controls; let i = index">
         <div [formGroupName]="i">
@@ -76,7 +75,7 @@
               </div>
               <div class="col-sm-4">
                 <label for="price">Price of this bike part</label>
-                <input formControlName="price" type="text" name="price" id="price" class="form-control"
+                <input formControlName="price" type="number" name="price" id="price" class="form-control"
                   placeholder="price" />
               </div>
               <div class="col-sm d-flex align-items-center justify-content-end">
@@ -90,11 +89,16 @@
           </div>
         </div>
       </div>
-
       <button class="btn btn-primary" (click)="addPart()">Add Parts</button>
     </div>
 
-    <!-- [disabled]="form.invalid" Fix this down below -->
+    <!-- [disabled]="a.invalid" Fix this down below -->
+
+    <ng-template #partsEditForm>
+      Placeholder for edit Parts component
+    </ng-template>
+
 
   </form>
+
 </div>

@@ -1,8 +1,9 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { BikesService } from '../../services/bikes.service';
 import { environment } from '../../../environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Bike } from '../../models/bike';
 
 @Component({
   selector: 'app-bike-form',
@@ -14,12 +15,12 @@ export class BikeFormComponent implements OnInit{
   form!: FormGroup;
   formData = new FormData();
   imageUrl: string[] = [];
-
+  showFileInput : boolean = true
   upload_preset = environment.cloudinary.upload_preset
   url = environment.cloudinary.url;
 
-  @ViewChild('gallery') gallery!: ElementRef;
   @ViewChild('files') filesInput!: ElementRef;
+  @Input() editForm!: boolean;
 
   constructor(private formBuilder: FormBuilder,
     private bikesService: BikesService,
@@ -46,26 +47,6 @@ export class BikeFormComponent implements OnInit{
     })
   }
 
-  get parts(): FormArray {
-    return <FormArray>this.form.get('parts');
-  }
-
-  buildParts(): FormGroup {
-    return this.formBuilder.group({
-      name: '',
-      inStock: true,
-      price: '',
-    })
-  }
-
-  addPart(): void {
-    this.parts.push(this.buildParts());
-  }
-
-  removePart(i: number): void {
-    this.parts.removeAt(i);
-  }
-
   async addBike() {
     await this.addPhotos();
     let bikeFormData = Object.assign({}, this.form.value);
@@ -75,6 +56,20 @@ export class BikeFormComponent implements OnInit{
     bikeFormData.cost = this.getPartsCost(bikeFormData.parts);
     bikeFormData.imageUrl = this.imageUrl;
     this.bikesService.addBike(bikeFormData);
+  }
+
+  async editBike(bike : Bike)
+  {
+    let id : string = this.route.snapshot.params['id'];
+    let bikeFormData = Object.assign({}, this.form.value);
+    bikeFormData.imageUrl = bike.imageUrl;
+    await this.addPhotos();
+
+    for (let i = 0; i < this.imageUrl.length; i++)
+       bikeFormData.imageUrl.push(this.imageUrl);
+
+    this.bikesService.editBike(id, bikeFormData);
+    this.router.navigate(['/bikes']);
   }
 
   async addPhotos() {
@@ -97,17 +92,29 @@ export class BikeFormComponent implements OnInit{
     }
   }
 
+   get parts(): FormArray {
+     return <FormArray>this.form.get('parts');
+   }
+
+  buildParts(): FormGroup {
+    return this.formBuilder.group({
+      name: '',
+      inStock: true,
+      price: '',
+    })
+  }
+
   getPartsCost(parts: any[]) {
     const reducer = (accumulator: any, currentValue: { price: any; }) => Number(accumulator) + Number(currentValue.price);
     return parts.reduce(reducer, 0);
   }
 
-  editBike()
-  {
-    let bikeFormData = Object.assign({}, this.form.value);
-    let id : string = this.route.snapshot.params['id'];
-    this.bikesService.editBike(id, bikeFormData);
-    this.router.navigate(['/bikes']);
+  addPart(): void {
+    this.parts.push(this.buildParts());
+  }
+
+  removePart(i: number): void {
+    this.parts.removeAt(i);
   }
 
 }

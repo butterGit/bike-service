@@ -4,6 +4,7 @@ import { Bike } from '../../models/bike';
 import { BikeFormComponent } from '../bike-form/bike-form.component';
 import { BikesService } from '../../services/bikes.service';
 import { tap } from 'rxjs/internal/operators/tap';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-bike',
@@ -18,11 +19,13 @@ export class EditBikeComponent implements OnInit {
   stateFlags: boolean[] = [];
   indexStateFlag = 0;
   showCarousel = true;
+  editForm = true;
 
   constructor(
     private route: ActivatedRoute,
-    private bikeService: BikesService
-  ) {}
+    private bikeService: BikesService,
+    private formBuilder : FormBuilder,
+  ) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
@@ -30,23 +33,32 @@ export class EditBikeComponent implements OnInit {
       .getBike(this.id)
       .pipe(tap((bike) => this.patchBikeForm(bike)))
       .subscribe((bike) => (this.bike = bike));
-    this.initializeStateArray();
+
+    if (this.showCarousel)
+      this.initializeStateArray();
   }
 
   patchBikeForm(bike: Bike) {
     const { id, imageUrl, ...formData } = bike;
-    this.imageUrl = imageUrl;
+    if (imageUrl.length !== 0)
+      this.imageUrl = imageUrl;
+    else
+      this.showCarousel = false
+
+    this.showCarousel = true;
     this.bikeForm.form.patchValue(formData);
   }
 
-  initializeStateArray(){
-      this.stateFlags[0] = true;
-      for (let i = 1; i < this.imageUrl.length; i++) {
-        this.stateFlags[i] = false;
-      }
+  initializeStateArray() {
+    this.stateFlags[0] = true;
+
+    for (let i = 1; i < this.imageUrl.length; i++) {
+      this.stateFlags[i] = false;
+    }
   }
 
   toggleStateLeft() {
+    console.log(this.bike);
     this.indexStateFlag++;
     if (this.indexStateFlag < this.stateFlags.length) {
       this.stateFlags[--this.indexStateFlag] = false;
@@ -70,8 +82,8 @@ export class EditBikeComponent implements OnInit {
     this.bikeForm.form.reset();
   }
 
-  editBike(){
-    this.bikeForm.editBike();
+  editBike(bike : Bike) {
+    this.bikeForm.editBike(bike);
   }
 
 }
