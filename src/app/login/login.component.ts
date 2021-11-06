@@ -29,11 +29,11 @@ export class LoginComponent{
   }
 
   private onSubmitSuccess () {
-    this.router.navigate(['bikes']).then(() => this.layoutService.showSidebar());
+    this.router.navigate(['/bikes']).then(() => this.layoutService.showSidebar());
   }
 
   login() {
-    this.authService.login(this.user).then(() => this.router.navigate(['bikes']));
+    this.authService.login(this.user).then(() => this.router.navigate(['/bikes']));
   }
 
   closeToast() {
