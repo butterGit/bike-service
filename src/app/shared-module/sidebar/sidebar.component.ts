@@ -18,7 +18,7 @@ export class SidebarComponent implements OnInit {
   signoutIcon = faSignOutAlt;
   githubIcon = faGithub;
 
-  constructor(private authService: AuthService,private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
   }

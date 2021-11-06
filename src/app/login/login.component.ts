@@ -33,7 +33,7 @@ export class LoginComponent{
   }
 
   login() {
-    this.authService.login(this.user).then(() => this.router.navigate(['/bikes']));
+    this.authService.login(this.user).then(() => this.router.navigate(['bikes']));
   }
 
   closeToast() {

@@ -12,13 +12,11 @@ export interface User {
 
 export class AuthService {
 
-  userData!: any;
 
   constructor(private fireAuth: AngularFireAuth) { }
 
   login(user: User) {
-    return this.fireAuth.signInWithEmailAndPassword(user.email, user.password)
-      .then(userCredential => this.userData = userCredential.user);
+    return this.fireAuth.signInWithEmailAndPassword(user.email, user.password);
   }
 
   register(user: User) {
