@@ -1,4 +1,4 @@
-Try this site online at: 
+Try this site online at: https://buttergit.github.io/bike-service/
 
 # BikeService
 
